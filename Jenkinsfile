@@ -5,7 +5,6 @@ pipeline{
         stage('Version') {
             steps{
                sh 'java --version'
-               sh 'docker --version'
                sh 'gradle -version'
             }
 
