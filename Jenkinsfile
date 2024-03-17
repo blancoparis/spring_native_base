@@ -1,11 +1,12 @@
 pipeline{
-    //agent { docker { image 'gradle:jdk21-graal' } }
-    agent any
+    agent { docker { image 'gradle:8.6.0-jdk21-alpine' } }
+    //agent any
     stages {
         stage('Version') {
             steps{
                sh 'java --version'
-               sh './gradlew -version'
+               sh 'gradle -version'
+    //           sh './gradlew -version'
             }
 
         }
