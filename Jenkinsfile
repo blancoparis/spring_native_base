@@ -5,7 +5,9 @@ pipeline{
         stage('Version') {
             steps{
                sh './gradlew -version'
-            }
+               sh 'docker --version'
+            },
+
         }
     }
 }
