@@ -1,11 +1,12 @@
 pipeline{
-    agent { docker { image 'gradle:jdk21-graal-jammy' } }
+    agent { docker { image 'gradle:jdk21-graal' } }
    // agent any
     stages {
         stage('Version') {
             steps{
-               sh 'gradle -version'
+               sh 'java --version'
                sh 'docker --version'
+               sh 'gradle -version'
             }
 
         }
