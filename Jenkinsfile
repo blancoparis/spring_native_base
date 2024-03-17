@@ -6,7 +6,7 @@ pipeline{
             steps{
                sh './gradlew -version'
                sh 'docker --version'
-            },
+            }
 
         }
     }
