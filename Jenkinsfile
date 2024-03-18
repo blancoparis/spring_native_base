@@ -7,6 +7,8 @@ pipeline{
                sh 'java --version'
                sh './gradlew -version'
                sh "docker --version"
+               sh "docker-compose --version"
+
             }
         }
         stage('Build'){
@@ -16,9 +18,7 @@ pipeline{
         }
         stage('Desplegar'){
             steps{
-                sh 'cd infra'
-                sh 'ls -la'
-                //sh 'docker compose up --detach'
+                sh 'docker compose --project-directory ./infra up --detach'
             }
         }
         stage('desmontar'){
