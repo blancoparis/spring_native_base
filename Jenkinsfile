@@ -8,7 +8,7 @@ pipeline{
                sh './gradlew -version'
                sh "docker --version"
             }
-        },
+        }
         stage('Build'){
             steps{
                 sh './gradlew clean bootBuildImage'
