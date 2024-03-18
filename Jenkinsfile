@@ -5,11 +5,14 @@ pipeline{
         stage('Version') {
             steps{
                sh 'java --version'
-     //          sh 'gradle -version'
                sh './gradlew -version'
                sh "docker --version"
             }
-
+        },
+        stage('Build'){
+            steps{
+                sh './gradlew clean bootBuildImage'
+            }
         }
     }
 }
