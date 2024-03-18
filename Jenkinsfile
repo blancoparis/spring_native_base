@@ -28,8 +28,7 @@ pipeline{
         }
         stage('desmontar'){
             steps{
-                sh 'ls -la'
-                //sh 'docker compose stop'
+                sh 'docker compose --project-directory ./infra up --detach'
             }
         }
     }

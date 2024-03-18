@@ -79,3 +79,11 @@ docker run --rm -p 8080:8080 docker.io/library/base:0.0.1-SNAPSHOT
 A la instalación de jenkis tenemos que revisar este articulo
 
 https://stackoverflow.com/questions/40043004/docker-command-not-found-mac-mini-only-happens-in-jenkins-shell-step-but-wo/58688536#58688536
+
+## Montar el build:
+
+* versiones
+* build: Construimos la imagen
+* desplegamos: Lanzamos la construcción.
+* test end to end: Los test end to end.
+* desmontar: Se encarga de desmontar.

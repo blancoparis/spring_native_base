@@ -11,7 +11,7 @@ public class BaseApplication {
 
 	@RequestMapping("/")
 	String home(){
-		return "hola mundo 3";
+		return "hola mundo 2";
 	}
 
 
