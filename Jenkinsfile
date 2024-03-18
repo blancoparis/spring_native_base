@@ -21,6 +21,11 @@ pipeline{
                 sh 'docker compose --project-directory ./infra up --detach'
             }
         }
+        stage('Test end to end'){
+            steps{
+                sh './gradlew integracionTest'
+            }
+        }
         stage('desmontar'){
             steps{
                 sh 'ls -la'

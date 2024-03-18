@@ -32,10 +32,26 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	//runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'io.rest-assured:rest-assured:5.4.0'
+
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
+/*tasks.named('test') {
+	useJUnitPlatform(includeTags 'test')
+}*/
+test{
+	useJUnitPlatform {
+		includeTags 'testUnitarios'
+	}
+}
+
+task integracionTest(type: Test) {
+	useJUnitPlatform {
+		includeTags 'Integracion'
+	}
+	options {
+		systemProperties(System.getProperties())
+	}
 }
 
 
