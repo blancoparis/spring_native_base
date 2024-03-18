@@ -17,13 +17,14 @@ pipeline{
         stage('Desplegar'){
             steps{
                 sh 'cd infra'
-                sh 'docker compose up --detach'
+                sh 'ls -la'
+                //sh 'docker compose up --detach'
             }
         }
         stage('desmontar'){
             steps{
-                sh 'cd infra'
-                sh 'docker compose stop'
+                //sh 'cd infra'
+                //sh 'docker compose stop'
             }
         }
     }
