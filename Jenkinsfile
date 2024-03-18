@@ -16,7 +16,7 @@ pipeline{
         }
         stage('Desplegar'){
             steps{
-                sh 'docker run --rm -p 8080:8080 docker.io/library/base:0.0.1-SNAPSHOT'
+                sh 'docker run --rm -p 8090:8080 docker.io/library/base:0.0.1-SNAPSHOT'
             }
         }
     }
