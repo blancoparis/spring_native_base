@@ -23,7 +23,7 @@ pipeline{
         }
         stage('desmontar'){
             steps{
-                //sh 'cd infra'
+                sh 'ls -la'
                 //sh 'docker compose stop'
             }
         }
