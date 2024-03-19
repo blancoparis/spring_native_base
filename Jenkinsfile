@@ -27,7 +27,7 @@ pipeline{
                     try{
                         sh './gradlew integracionTest'
                     }finally{
-                        sh 'docker compose -f ./infra/docker-compose.yml -f ./infra/docker-compose.dev.yml  down --detach'
+                        sh 'docker compose -f ./infra/docker-compose.yml -f ./infra/docker-compose.dev.yml  down '
                         junit '**/build/test-results/**/*.xml' //make the junit test results available in any case (success & failure)
                     }
                 }
