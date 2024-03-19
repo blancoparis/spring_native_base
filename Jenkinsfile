@@ -18,7 +18,7 @@ pipeline{
         }
         stage('Desplegar'){
             steps{
-                sh 'docker compose -f ./infra/docker-compose.yml -f ./infra/docker-compose.dev.yml  up --detach'
+                sh 'docker compose -f ./infra/docker-compose.yml -f ./infra/docker-compose.sit.yml  up --detach'
             }
         }
         stage('Test end to end'){
@@ -27,7 +27,7 @@ pipeline{
                     try{
                         sh './gradlew integracionTest'
                     }finally{
-                        sh 'docker compose -f ./infra/docker-compose.yml -f ./infra/docker-compose.dev.yml  down '
+                        sh 'docker compose -f ./infra/docker-compose.yml -f ./infra/docker-compose.sit.yml  down '
                         junit '**/build/test-results/**/*.xml' //make the junit test results available in any case (success & failure)
                     }
                 }
