@@ -1,7 +1,4 @@
 version: "3.9"
 services:
   web:
-    image: "docker.io/library/base:0.0.1-SNAPSHOT"
-    container_name: "base-native"
-    ports:
-      - "8090:8080"
+    image: "dbp/base-native:latest"

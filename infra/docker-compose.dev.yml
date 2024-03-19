@@ -1,0 +1,7 @@
+version: "3.9"
+name: "dev"
+services:
+  web:
+    container_name: "base-native-dev"
+    ports:
+      - "8091:8080"

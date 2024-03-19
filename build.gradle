@@ -8,9 +8,11 @@ plugins {
 
 group = 'com.dbp.native'
 version = '0.0.1-SNAPSHOT'
-
+ext {
+	entorno = project.findProperty("entorno") ?:"dev"
+}
 bootBuildImage {
-
+	imageName = "dbp/base-native"
 	builder = "dashaun/builder:tiny"
 	environment = [
 			"BP_NATIVE_IMAGE" : "true",

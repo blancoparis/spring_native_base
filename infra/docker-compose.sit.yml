@@ -1,0 +1,7 @@
+version: "3.9"
+name: "sit"
+services:
+  web:
+    container_name: "base-native-sit"
+    ports:
+      - "8090:8080"
