@@ -23,11 +23,13 @@ pipeline{
         }
         stage('Test end to end'){
             steps{
-                try{
-                    sh './gradlew integracionTest'
-                }finally{
-                    sh 'docker compose --project-directory ./infra up --detach'
-                    junit '**/build/test-results/**/*.xml' //make the junit test results available in any case (success & failure)
+                script{
+                    try{
+                        sh './gradlew integracionTest'
+                    }finally{
+                        sh 'docker compose --project-directory ./infra up --detach'
+                        junit '**/build/test-results/**/*.xml' //make the junit test results available in any case (success & failure)
+                    }
                 }
             }
         }
