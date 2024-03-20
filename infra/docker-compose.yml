@@ -1,4 +1,6 @@
 version: "3.9"
+name: "local"
 services:
   web:
+    container_name: "base-native"
     image: "dbp/base-native:latest"
