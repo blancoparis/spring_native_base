@@ -1,7 +1,7 @@
 pipeline{
-    agent { docker { image 'vegardit/graalvm-maven:latest-java21' } }
+    //agent { docker { image 'vegardit/graalvm-maven:latest-java21' } }
 
- //   agent any
+    agent any
     stages {
         stage('Version') {
             steps{
@@ -15,7 +15,11 @@ pipeline{
                 sh 'mvn spring-boot:build-image -Pnative'
             }
         }
-
-
+        stage('Desplegar'){
+            agent { docker { image 'alpinelinux/docker-compose:latest' } }
+            steps{
+                sh 'docker compose -f ./infra/docker-compose.yml -f ./infra/docker-compose.sit.yml  up --detach'
+            }
+        }
     }
 }
