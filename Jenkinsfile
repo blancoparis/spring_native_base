@@ -6,7 +6,7 @@ pipeline{
         stage('Version') {
             steps{
                sh 'java --version'
-               sh 'mvnw -version'
+               sh './mvnw -version'
                sh "docker --version"
                sh "docker-compose --version"
             }
