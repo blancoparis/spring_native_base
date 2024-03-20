@@ -6,13 +6,14 @@ pipeline{
         stage('Version') {
             steps{
                sh 'java --version'
-               sh 'mvn -version'
+               sh 'mvnw -version'
                sh "docker --version"
+               sh "docker-compose --version"
             }
         }
         stage('Build'){
             steps{
-                sh 'mvn spring-boot:build-image -Pnative'
+                sh './mvnw spring-boot:build-image -Pnative'
             }
         }
         stage('Desplegar'){
