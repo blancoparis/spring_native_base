@@ -30,7 +30,7 @@ pipeline{
                         sh './mvnw verify -P sit'
                     }finally{
                         sh 'docker compose -f ./infra/docker-compose.yml -f ./infra/docker-compose.sit.yml  down '
-                        junit '**/build/test-results/**/*.xml' //make the junit test results available in any case (success & failure)
+                        junit '**/target/surefire-reports/**/*.xml' //make the junit test results available in any case (success & failure)
                     }
                 }
             }
