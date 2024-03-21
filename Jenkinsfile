@@ -23,15 +23,15 @@ pipeline{
             }
         }
         stage('Test end to end'){
+            agent any
             steps{
-                sh './mvnw verify -P sit'
-            }
-        }
-        stage('Desmontar'){
-            agent any //{ docker { image 'alpinelinux/docker-compose:latest' } }
-                steps{
+                try{
+                    sh './mvnw verify -P sit'
+                }finally{
                     sh 'docker compose -f ./infra/docker-compose.yml -f ./infra/docker-compose.sit.yml  down '
+                    junit '**/build/test-results/**/*.xml' //make the junit test results available in any case (success & failure)
                 }
             }
+        }
     }
 }
