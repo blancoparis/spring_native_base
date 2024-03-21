@@ -7,7 +7,7 @@ pipeline{
                sh './mvnw -version'
                sh "docker --version"
                sh "docker-compose --version"
-               sh "echo ${ENTORNO}"
+
             }
         }
         stage('Build'){
