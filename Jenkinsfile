@@ -24,13 +24,13 @@ pipeline{
         }
         stage('Test end to end'){
             steps{
-                sh './mvnw clean test -P sit'
+                sh './mvnw verify -P sit'
             }
         }
         stage('Desmontar'){
             agent any //{ docker { image 'alpinelinux/docker-compose:latest' } }
                 steps{
-                    sh 'docker compose -f ./infra/docker-compose.yml -f ./infra/docker-compose.sit.yml  down --detach'
+                    sh 'docker compose -f ./infra/docker-compose.yml -f ./infra/docker-compose.sit.yml  down '
                 }
             }
     }
