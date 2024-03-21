@@ -1,7 +1,5 @@
 pipeline{
     //agent { docker { image 'vegardit/graalvm-maven:latest-java21' } }
-
-    agent any
     stages {
         stage('Version') {
             steps{
@@ -17,13 +15,11 @@ pipeline{
             }
         }
         stage('Desplegar'){
-            agent any //{ docker { image 'alpinelinux/docker-compose:latest' } }
             steps{
                 sh 'docker compose -f ./infra/docker-compose.yml -f ./infra/docker-compose.sit.yml  up --detach'
             }
         }
         stage('Test end to end'){
-            agent any
             steps{
                 script{
                     try{
