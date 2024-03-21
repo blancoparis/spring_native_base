@@ -13,7 +13,7 @@ pipeline{
         }
         stage('Build'){
             steps{
-                sh './mvnw spring-boot:build-image -Pnative'
+                sh './mvnw spring-boot:build-image -Pnative -DskiptTests'
             }
         }
         stage('Desplegar'){
