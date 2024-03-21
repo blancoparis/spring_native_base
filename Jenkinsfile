@@ -17,7 +17,7 @@ pipeline{
             }
         }
         stage('Desplegar'){
-            agent { docker { image 'alpinelinux/docker-compose:latest' } }
+            agent any //{ docker { image 'alpinelinux/docker-compose:latest' } }
             steps{
                 sh 'docker compose -f ./infra/docker-compose.yml -f ./infra/docker-compose.sit.yml  up --detach'
             }
