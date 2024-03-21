@@ -13,7 +13,7 @@ pipeline{
         }
         stage('Build'){
             steps{
-                sh './mvnw spring-boot:build-image -Pnative -DskipTests'
+                sh './mvnw spring-boot:build-image -Pnative'
             }
         }
         stage('Desplegar'){
@@ -22,5 +22,16 @@ pipeline{
                 sh 'docker compose -f ./infra/docker-compose.yml -f ./infra/docker-compose.sit.yml  up --detach'
             }
         }
+        stage('Test end to end'){
+            steps{
+                sh './mvnw clean test -P sit'
+            }
+        }
+        stage('Desmontar'){
+            agent any //{ docker { image 'alpinelinux/docker-compose:latest' } }
+                steps{
+                    sh 'docker compose -f ./infra/docker-compose.yml -f ./infra/docker-compose.sit.yml  down --detach'
+                }
+            }
     }
 }
