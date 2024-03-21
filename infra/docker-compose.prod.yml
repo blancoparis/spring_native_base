@@ -1,0 +1,7 @@
+version: "3.9"
+name: "uat"
+services:
+  web:
+    container_name: "base-native-uat"
+    ports:
+      - "8093:8080"

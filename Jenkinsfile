@@ -1,5 +1,4 @@
 pipeline{
-    //agent { docker { image 'vegardit/graalvm-maven:latest-java21' } }
     agent any
     environment {
         ENTORNO = credentials('entorno')
