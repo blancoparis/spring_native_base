@@ -1,19 +1,13 @@
-# Read Me First
-The following was discovered as part of building this project:
-
-* The original package name 'com.dbp.native.base' is invalid and this project uses 'com.example.demo' instead.
-
 # Getting Started
 
 ### Reference Documentation
 For further reference, please consider the following sections:
 
-* [Official Gradle documentation](https://docs.gradle.org)
-* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.2.3/gradle-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.2.3/gradle-plugin/reference/html/#build-image)
+* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
+* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.2.3/maven-plugin/reference/html/)
+* [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.2.3/maven-plugin/reference/html/#build-image)
 * [GraalVM Native Image Support](https://docs.spring.io/spring-boot/docs/3.2.3/reference/html/native-image.html#native-image)
 * [Spring Web](https://docs.spring.io/spring-boot/docs/3.2.3/reference/htmlsingle/index.html#web)
-* [Spring Data JPA](https://docs.spring.io/spring-boot/docs/3.2.3/reference/htmlsingle/index.html#data.sql.jpa-and-spring-data)
 
 ### Guides
 The following guides illustrate how to use some features concretely:
@@ -21,13 +15,11 @@ The following guides illustrate how to use some features concretely:
 * [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
 * [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
 * [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
-* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
 
 ### Additional Links
 These additional references should also help you:
 
-* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)
-* [Configure AOT settings in Build Plugin](https://docs.spring.io/spring-boot/docs/3.2.3/gradle-plugin/reference/htmlsingle/#aot)
+* [Configure AOT settings in Build Plugin](https://docs.spring.io/spring-boot/docs/3.2.3/maven-plugin/reference/htmlsingle/#aot)
 
 ## GraalVM Native Support
 
@@ -41,13 +33,13 @@ Docker should be installed and configured on your machine prior to creating the 
 To create the image, run the following goal:
 
 ```
-$ ./gradlew bootBuildImage
+$ ./mvnw spring-boot:build-image -Pnative
 ```
 
 Then, you can run the app like any other container:
 
 ```
-$ docker run --rm -p 8080:8080 base:0.0.1-SNAPSHOT
+$ docker run --rm -p 8080:8080 demo:0.0.1-SNAPSHOT
 ```
 
 ### Executable with Native Build Tools
@@ -59,12 +51,12 @@ NOTE: GraalVM 22.3+ is required.
 To create the executable, run the following goal:
 
 ```
-$ ./gradlew nativeCompile
+$ ./mvnw native:compile -Pnative
 ```
 
 Then, you can run the app as follows:
 ```
-$ build/native/nativeCompile/base
+$ target/demo
 ```
 
 You can also run your existing tests suite in a native image.
@@ -73,6 +65,6 @@ This is an efficient way to validate the compatibility of your application.
 To run your existing tests in a native image, run the following goal:
 
 ```
-$ ./gradlew nativeTest
+$ ./mvnw test -PnativeTest
 ```
 
