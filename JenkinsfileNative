@@ -1,0 +1,22 @@
+pipeline{
+    agent any
+    environment {
+        ENTORNO = credentials('entorno')
+    }
+    stages {
+        stage('Version') {
+            steps{
+               sh 'java --version'
+               sh './mvnw -version'
+               sh "docker --version"
+               sh "docker-compose --version"
+               sh "echo ${ENTORNO}"
+            }
+        }
+        stage('Build'){
+            steps{
+                sh "./mvnw clean native:compile -Pnative"
+            }
+        }
+    }
+}

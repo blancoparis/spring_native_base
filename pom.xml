@@ -77,7 +77,7 @@
                 <groupId>org.graalvm.buildtools</groupId>
                 <artifactId>native-maven-plugin</artifactId>
                 <configuration>
-                    <imageName>dbp/base-native</imageName>
+                    <imageName>base-native</imageName>
                     <builder>dashaun/builder:tiny</builder>
                 </configuration>
             </plugin>
