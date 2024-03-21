@@ -13,7 +13,7 @@ pipeline{
         }
         stage('Build'){
             steps{
-                sh './mvnw spring-boot:build-image -Pnative'
+                sh './mvnw spring-boot:build-image -Pnative sit'
             }
         }
         stage('Desplegar'){
@@ -27,7 +27,7 @@ pipeline{
             steps{
                 script{
                     try{
-                        sh './mvnw verify -P sit'
+                        sh './mvnw verify -P endToEnd'
                     }finally{
                         sh 'docker compose -f ./infra/docker-compose.yml -f ./infra/docker-compose.sit.yml  down '
                         junit '**/target/surefire-reports/**/*.xml' //make the junit test results available in any case (success & failure)

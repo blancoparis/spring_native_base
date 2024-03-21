@@ -28,24 +28,24 @@
         </profile>
         <profile>
             <id>uat</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <junit.exlcude>Integracion</junit.exlcude>
-            </properties>
-        </profile>
-        <profile>
-            <id>prod</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <properties>
                 <junit.exlcude>Integracion</junit.exlcude>
             </properties>
         </profile>
         <profile>
             <id>sit</id>
+            <properties>
+                <junit.exlcude>Integracion</junit.exlcude>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <junit.exlcude>Integracion</junit.exlcude>
+            </properties>
+        </profile>
+        <profile>
+            <id>endToEnd</id>
             <properties>
                 <junit.exlcude>Unitarios</junit.exlcude>
             </properties>
