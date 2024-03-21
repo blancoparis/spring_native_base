@@ -1,8 +1,5 @@
 pipeline{
     agent any
-    environment {
-        ENTORNO = credentials('entorno')
-    }
     stages {
         stage('Version') {
             steps{
