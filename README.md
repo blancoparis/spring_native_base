@@ -88,3 +88,15 @@ https://stackoverflow.com/questions/40043004/docker-command-not-found-mac-mini-o
 * test end to end: Los test end to end.
 * desmontar: Se encarga de desmontar.
 
+## Configurar las sondas de kubernetes:
+
+* La sonda de actividad. (Es la sonda que usa para determinar cuando reiniciar el contenedor)
+* La sonda de preparación. (Esta lista para recibir solicitudes)
+
+```properties
+# Configuracion heath de kubernetes
+management.endpoint.health.probes.enabled=true
+management.health.livenessState.enabled=true
+management.health.readinessState.enabled=true
+```
+
