@@ -1,7 +1,7 @@
 version: "3.9"
-name: "uat"
+name: "prod"
 services:
   web:
-    container_name: "base-native-uat"
+    container_name: "base-native-prdo"
     ports:
       - "8093:8080"

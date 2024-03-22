@@ -68,3 +68,5 @@ To run your existing tests in a native image, run the following goal:
 $ ./mvnw test -PnativeTest
 ```
 
+1126b000672ed4eb4ec2ab1ef30bf41cfc
+
