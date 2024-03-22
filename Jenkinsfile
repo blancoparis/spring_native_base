@@ -15,7 +15,7 @@ pipeline{
         }
         stage('Build'){
             steps{
-                sh "./mvnw clean spring-boot:build-image -Pnative -P ${ENTORNO}"
+                sh "./mvnw clean spring-boot:build-image -Pnative -P${ENTORNO}"
             }
         }
         stage('Desplegar'){
