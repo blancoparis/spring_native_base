@@ -102,3 +102,86 @@ management.health.readinessState.enabled=true
 
 > https://www.baeldung.com/spring-liveness-readiness-probes
 
+## Configurar los entornos
+
+### Build maven
+
+ Lo primero que vamos hacer es crear un profile por cada entorno y pondremos el dev por defecto.
+
+ > Por otro lado vamos a mapear con la propiedad ${sb.profiles} para pasarselo a spring.
+
+```xml
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <junit.exlcude>Integracion</junit.exlcude>
+                <sb.profiles>dev</sb.profiles>
+            </properties>
+        </profile>
+        <profile>
+            <id>uat</id>
+            <properties>
+                <junit.exlcude>Integracion</junit.exlcude>
+                <sb.profiles>uat</sb.profiles>
+            </properties>
+        </profile>
+        <profile>
+            <id>sit</id>
+            <properties>
+                <junit.exlcude>Integracion</junit.exlcude>
+                <sb.profiles>sit</sb.profiles>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <junit.exlcude>Integracion</junit.exlcude>
+                <sb.profiles>prod</sb.profiles>
+            </properties>
+        </profile>
+        <profile>
+            <id>endToEnd</id>
+            <properties>
+                <junit.exlcude>Unitarios</junit.exlcude>
+                <sb.profiles>sit</sb.profiles>
+            </properties>
+        </profile>
+    </profiles>
+```
+
+### Configurar los profiles de spring
+
+En este caso simplemente le tenemos que pasar la variable anterior, al pluging de spring.
+
+```xml
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <profiles>${sb.profiles}</profiles>
+                </configuration>
+            </plugin>
+```
+
+> En la variable profiles de la configuración pasamos ${sb.profiles}
+
+### Configuramos el status
+
+En este caso lo que haces es configurar un endpoint status, para pasar la información correspondiente.
+
+```java
+    public record Status(String status,String env){}	
+
+    @RequestMapping("/status")
+	Status status(){
+		var entornos = String.join(",",environment.getActiveProfiles());
+		return new Status("OK",entornos);
+	}
+```
+
+
+

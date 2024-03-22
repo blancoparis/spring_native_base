@@ -24,30 +24,35 @@
             </activation>
             <properties>
                 <junit.exlcude>Integracion</junit.exlcude>
+                <sb.profiles>dev</sb.profiles>
             </properties>
         </profile>
         <profile>
             <id>uat</id>
             <properties>
                 <junit.exlcude>Integracion</junit.exlcude>
+                <sb.profiles>uat</sb.profiles>
             </properties>
         </profile>
         <profile>
             <id>sit</id>
             <properties>
                 <junit.exlcude>Integracion</junit.exlcude>
+                <sb.profiles>sit</sb.profiles>
             </properties>
         </profile>
         <profile>
             <id>prod</id>
             <properties>
                 <junit.exlcude>Integracion</junit.exlcude>
+                <sb.profiles>prod</sb.profiles>
             </properties>
         </profile>
         <profile>
             <id>endToEnd</id>
             <properties>
                 <junit.exlcude>Unitarios</junit.exlcude>
+                <sb.profiles>sit</sb.profiles>
             </properties>
         </profile>
     </profiles>
@@ -88,6 +93,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <profiles>${sb.profiles}</profiles>
+                </configuration>
             </plugin>
 
             <plugin>
