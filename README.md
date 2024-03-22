@@ -100,3 +100,5 @@ management.health.livenessState.enabled=true
 management.health.readinessState.enabled=true
 ```
 
+> https://www.baeldung.com/spring-liveness-readiness-probes
+
