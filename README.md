@@ -4,6 +4,7 @@ Es un proyecto ejemplo de spring native de hola mundo
 
 La idea de utilizar spring-native, es para que los servicios consuman menos recursos y sean mas rapidos.
 
+> https://www.baeldung.com/dockerizing-spring-boot-application  Dokenizar spring boot.
 
 ## Preparar el mac para spring native
 
