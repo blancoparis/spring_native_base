@@ -3,5 +3,7 @@ name: "dev"
 services:
   web:
     container_name: "base-native-dev"
+    environment:
+      - "SPRING_PROFILES_ACTIVE=dev"
     ports:
       - "8091:8080"

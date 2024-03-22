@@ -3,5 +3,7 @@ name: "uat"
 services:
   web:
     container_name: "base-native-uat"
+    environment:
+      - "SPRING_PROFILES_ACTIVE=uat"
     ports:
       - "8092:8080"

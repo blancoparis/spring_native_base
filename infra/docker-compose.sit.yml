@@ -3,5 +3,7 @@ name: "sit"
 services:
   web:
     container_name: "base-native-sit"
+    environment:
+      - "SPRING_PROFILES_ACTIVE=sit"
     ports:
       - "8090:8080"

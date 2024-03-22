@@ -2,6 +2,8 @@ version: "3.9"
 name: "prod"
 services:
   web:
-    container_name: "base-native-prdo"
+    container_name: "base-native-prod"
+    environment:
+      - "SPRING_PROFILES_ACTIVE=prod"
     ports:
       - "8094:8080"
