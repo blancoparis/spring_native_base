@@ -23,6 +23,11 @@ pipeline{
                 sh "docker compose -f ./infra/docker-compose.yml -f ./infra/docker-compose.${ENTORNO}.yml  push"
             }
         }
+        stage('Recuperar imagen'){
+            steps{
+                sh "docker -H ssh://pdb@192.168.1.42 pull"
+            }
+        }
         stage('Desplegar'){
             steps{
                 sh "export DOCKER_HOST=ssh://pdb@192.168.1.42"
