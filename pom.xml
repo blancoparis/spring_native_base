@@ -10,13 +10,28 @@
     </parent>
     <groupId>com.dbp.native</groupId>
     <artifactId>base</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
     <name>demo</name>
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>21</java.version>
     </properties>
     <profiles>
+        <profile>
+            <id>amdIntel</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <paketo.builder>paketobuildpacks/builder-jammy-tiny</paketo.builder>
+            </properties>
+        </profile>
+        <profile>
+            <id>mac</id>
+            <properties>
+                <paketo.builder>dashaun/builder:tiny</paketo.builder>
+            </properties>
+        </profile>
         <profile>
             <id>dev</id>
             <activation>
@@ -87,7 +102,6 @@
                 <artifactId>native-maven-plugin</artifactId>
                 <configuration>
                     <imageName>base-native</imageName>
-                    <builder>dashaun/builder:tiny</builder>
                 </configuration>
             </plugin>
             <plugin>
@@ -95,7 +109,13 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <profiles>${sb.profiles}</profiles>
-                </configuration>
+                    <image>
+                       <name>dblanco80/spring-native-base</name>
+                        <!--suppress UnresolvedMavenProperty -->
+                        <builder>${paketo.builder}</builder>
+                       <publish>false</publish>
+                    </image>
+                    </configuration>
             </plugin>
 
             <plugin>

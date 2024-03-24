@@ -3,4 +3,5 @@ name: "local"
 services:
   web:
     container_name: "base-native"
-    image: "dbp/base-native:latest"
+    build: "docker.io/dblanco80/spring-native-base"
+    image: "dblanco80/spring-native-base:latest"

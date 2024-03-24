@@ -42,18 +42,27 @@ brew install zlib
 A diferencia de los proyectos en windows o linux, es necesario cambiar el builder por el siguiente (dashaun/builder:tiny) 
 en este caso lo que tenemos que cambiar el builder de paketo en la tarea de bootBuilderImage:
 
-```groovy
-bootBuildImage {
-
-	builder = "dashaun/builder:tiny"
-	environment = [
-			"BP_NATIVE_IMAGE" : "true",
-			"BP_JVM_VERSION" : "21"
-	]
-}
+```xml
+<plugin>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-maven-plugin</artifactId>
+    <configuration>
+        <profiles>${sb.profiles}</profiles>
+        <image>
+            <name>dblanco80/spring-native-base</name>
+            <!--suppress UnresolvedMavenProperty -->
+            <builder>${paketo.builder}</builder>
+            <publish>false</publish>
+        </image>
+    </configuration>
+</plugin>
 ```
-
-
+* **profile**: nos sirve para indicar los profiles activos que nos interesan.
+* **name**: Es el nombre de la imagen <dockerHubId>/<repositorio> --> Tiene que coincidir con el mac
+* **builder**: Es el builder que vamos a usar para montar la imagen.
+  * (profile -> amdIntel (Defecto)  el builder (**paketobuildpacks/builder-jammy-tiny**), es el que usamos para compilar en windows/linux con graalvm21
+  * (profile -> mac) el builder (**dashaun/builder:tiny**), es el usuamos para construir la imagen de mac.
+* **publish**: Si lo vamos a publicar, en este caso no.
 
 
 > Para mas información podemos mirar el siguiente repositorio (https://github.com/dashaun/paketo-arm64)
@@ -64,16 +73,60 @@ bootBuildImage {
 Para crear la imagen, tenemos que ejecutar la tarea (bootBuildImage)
 
 ```bash
-./gradlew clean bootBuildImage
+./mvnw clean spring-boot:build-image  -Pdev 
 ```
-> Con este comando ya hemos conseguido crear una image para docker
-## Como ejecutar el proyecto en docker
 
-Con el siguiente comando podemos lanzar en docker
+> Con este comando ya hemos conseguido crear una image para docker
+
+## Publicar en el repositorio:
+
+Lo primero que tenemos que hacer es configurar en el composer dos propiedades, a nivel del servicio
+
+* build: Para indicar de donde obtenerlo, en este caso lo obtendremos del build de maven nos lo indica (**docker.io/dblanco80/spring-native-base**) que suele ser docker.io/<image> 
+* imagen: Donde le indicaremos donde crearlo. <dokerhubid>/<repositorio> esta es la forma de indicarle que lo publique en dockerhub
+
+En nuestro caso lo vamos a configurar en el docker composer, quedaria asi
+
+```yaml
+version: "3.9"
+name: "local"
+services:
+  web:
+    container_name: "base-native"
+    build: "docker.io/dblanco80/spring-native-base"
+    image: "dblanco80/spring-native-base:latest"
+```
+
+Una vez configurado, simplemente tenemos que llamar al push.
 
 ```bash
-docker run --rm -p 8080:8080 docker.io/library/base:0.0.1-SNAPSHOT
+ docker compose -f ./infra/docker-compose.yml -f ./infra/docker-compose.dev.yml push
 ```
+ 
+## Como ejecutar el proyecto en docker
+
+En este caso tenemos que decidir si lo vamos hacer en nuestro docker local o en de otra maquina.
+
+### Docker local
+
+```bash
+docker compose -f ./infra/docker-compose.yml -f ./infra/docker-compose.sit.yml up -d 
+```
+
+### Desplegar en una remoto
+
+En este caso lo que tenemos que hacer es indicarle, al cliente de docker, donde se encuentra el repositorio, en nuestro caso es un ssh2
+
+* Utilizaremos la variable de entorno DOCKER_HOST
+* Levantamos.
+* Borramos la variable de entorno.
+
+```bash
+export DOCKER_HOST=ssh://<user>@<ip>
+docker compose -f ./infra/docker-compose.yml -f ./infra/docker-compose.sit.yml up -d 
+unset DOCKER_HOST 
+```
+
 
 ## Como configurar jenkins
 
@@ -110,10 +163,26 @@ management.health.readinessState.enabled=true
  Lo primero que vamos hacer es crear un profile por cada entorno y pondremos el dev por defecto.
 
  > Por otro lado vamos a mapear con la propiedad ${sb.profiles} para pasarselo a spring.
+ > Paketo.builder es el builder que vamos a usar. 
 
 ```xml
     <profiles>
         <profile>
+            <profile>
+                <id>amdIntel</id>
+                <activation>
+                    <activeByDefault>true</activeByDefault>
+                </activation>
+                <properties>
+                    <paketo.builder>paketobuildpacks/builder-jammy-tiny</paketo.builder>
+                </properties>
+            </profile>
+            <profile>
+                <id>mac</id>
+                <properties>
+                    <paketo.builder>dashaun/builder:tiny</paketo.builder>
+                </properties>
+            </profile>
             <id>dev</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -169,6 +238,23 @@ En este caso simplemente le tenemos que pasar la variable anterior, al pluging d
 ```
 
 > En la variable profiles de la configuración pasamos ${sb.profiles}
+
+### Como le indicamos en el contenedor el profile.
+
+Ahora el problema es que se lo tenemos que indicar dentro del contenedor, para esto utilizaremos los parametros de enviroment 
+que en este caso es **SPRING_PROFILES_ACTIVE** 
+
+```yaml
+version: "3.9"
+name: "uat"
+services:
+  web:
+    container_name: "base-native-uat"
+    environment:
+      - "SPRING_PROFILES_ACTIVE=uat"
+    ports:
+      - "8092:8080"
+```
 
 ### Configuramos el status
 
