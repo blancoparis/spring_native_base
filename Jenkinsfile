@@ -31,9 +31,7 @@ pipeline{
         stage('Desplegar'){
             steps{
                 script{
-                    sh "export DOCKER_HOST=ssh://pdb@192.168.1.42"
-                    sh "docker compose -f ./infra/docker-compose.yml -f ./infra/docker-compose.${ENTORNO}.yml  up --detach"
-                    sh "unset DOCKER_HOST"
+                    sh "docker -H ssh://pdb@192.168.1.42 compose -f ./infra/docker-compose.yml -f ./infra/docker-compose.${ENTORNO}.yml  up --detach"
                 }
             }
         }
