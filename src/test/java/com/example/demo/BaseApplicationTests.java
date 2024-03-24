@@ -45,7 +45,7 @@ class BaseApplicationTests {
 					get("/").accept(MimeTypeUtils.APPLICATION_JSON_VALUE))
 				.andExpect(status().isOk())
 				.andReturn();
-		assertEquals("hola mundo 9",body.getResponse().getContentAsString(),"El texto del hola mundo 2");
+		assertEquals("hola mundo 10",body.getResponse().getContentAsString(),"El texto del hola mundo 2");
 
 	}
 
