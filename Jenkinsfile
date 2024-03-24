@@ -25,7 +25,7 @@ pipeline{
         }
         stage('Recuperar imagen'){
             steps{
-                sh "docker -H ssh://pdb@192.168.1.42 pull"
+                sh "docker -H ssh://pdb@192.168.1.42 pull dblanco80/spring-native-base:latest"
             }
         }
         stage('Desplegar'){
