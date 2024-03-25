@@ -16,7 +16,7 @@ public class BaseApplication {
 
 	@RequestMapping("/")
 	String home(){
-		return "hola mundo 10";
+		return "hola mundo 11";
 	}
 
 	public record Status(String status,String env){}
