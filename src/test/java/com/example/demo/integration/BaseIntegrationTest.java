@@ -9,10 +9,10 @@ import org.junit.jupiter.api.*;
 @Tag("Integracion")
 @TestMethodOrder( MethodOrderer.OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class BaseIntegrationTest {
+ class BaseIntegrationTest {
 
     @Test
-    public void test001HolaMundo(){
+     void test001HolaMundo(){
         RestAssured.reset();
         RestAssured.requestSpecification = new RequestSpecBuilder().
                     setBaseUri("http://localhost")
