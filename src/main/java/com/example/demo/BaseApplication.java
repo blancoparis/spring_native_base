@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.system.JavaVersion;
 import org.springframework.core.SpringVersion;
 import org.springframework.core.env.Environment;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,13 +24,13 @@ public class BaseApplication {
 
 	private Environment environment;
 
-	@RequestMapping("/")
+	@GetMapping("/")
 	String home(){
 		return "hola mundo 11";
 	}
 
 	public record Status(String status,String env,String springVersion,String springBootVersion,String jdk,String java){}
-	@RequestMapping("/status")
+	@GetMapping("/status")
 	Status status(){
 		var entornos = String.join(",",environment.getActiveProfiles());
 		return new Status(
