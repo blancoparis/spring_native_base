@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 public class BaseApplication {
 
+
 	@Autowired
 	BaseApplication( Environment environment){
-		environment=environment;
+		this.environment=environment;
 	}
 
 
