@@ -121,12 +121,20 @@ En este caso lo que tenemos que hacer es indicarle, al cliente de docker, donde 
 * Levantamos.
 * Borramos la variable de entorno.
 
+Solucion cutre
+
 ```bash
 export DOCKER_HOST=ssh://<user>@<ip>
 docker compose -f ./infra/docker-compose.yml -f ./infra/docker-compose.sit.yml up -d 
 unset DOCKER_HOST 
 ```
 
+Solucion en un solc comando
+```bash
+docker -H ssh://<user>@<ip> compose -f ./infra/docker-compose.yml -f ./infra/docker-compose.sit.yml up -d
+```
+
+> De esta manera no nos la jugamos con el tema con las variables de entorno que si por alguna razon se rompe la ejecución o ejecuciones paralelas puede impactar a otros comandos.
 
 ## Como configurar jenkins
 
@@ -216,7 +224,7 @@ management.health.readinessState.enabled=true
         <profile>
             <id>endToEnd</id>
             <properties>
-                <junit.exlcude>Unitarios</junit.exlcude>
+                <junitdo.exlcude>Unitarios</junitdo.exlcude>
                 <sb.profiles>sit</sb.profiles>
             </properties>
         </profile>
