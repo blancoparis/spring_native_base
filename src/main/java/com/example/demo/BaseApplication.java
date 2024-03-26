@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class BaseApplication {
 
 	@Autowired
+	BaseApplication( Environment environment){
+		environment=environment;
+	}
+
+
 	private Environment environment;
 
 	@RequestMapping("/")
